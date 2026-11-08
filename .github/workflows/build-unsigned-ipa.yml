@@ -1,0 +1,40 @@
+name: Build unsigned Antagram IPA
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main, master ]
+
+jobs:
+  build:
+    runs-on: macos-15
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Show Xcode version
+        run: xcodebuild -version
+      - name: Build Antagram for iPhone (without signing)
+        run: |
+          xcodebuild \\
+            -project "Antagram_Project/Antagram-Prototype/Antagram/Antagram.xcodeproj" \\
+            -target Antagram \\
+            -configuration Release \\
+            -sdk iphoneos \\
+            -derivedDataPath "$RUNNER_TEMP/AntagramDerivedData" \\
+            CODE_SIGNING_ALLOWED=NO \\
+            CODE_SIGNING_REQUIRED=NO \\
+            build
+      - name: Package unsigned IPA
+        run: |
+          APP_PATH="$RUNNER_TEMP/AntagramDerivedData/Build/Products/Release-iphoneos/Antagram.app"
+          test -d "$APP_PATH"
+          mkdir -p "$RUNNER_TEMP/ipa/Payload"
+          cp -R "$APP_PATH" "$RUNNER_TEMP/ipa/Payload/Antagram.app"
+          cd "$RUNNER_TEMP/ipa"
+          /usr/bin/zip -r "$GITHUB_WORKSPACE/Antagram-unsigned.ipa" Payload
+      - name: Upload IPA artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Antagram-unsigned-IPA
+          path: Antagram-unsigned.ipa
+          if-no-files-found: error
