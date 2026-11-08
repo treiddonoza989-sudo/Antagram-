@@ -75,7 +75,7 @@ struct ProfileView: View {
                     VStack(alignment: .leading, spacing: 12) {
                         Text("Мои подарки").font(.headline)
                         if user.gifts.isEmpty { Text("Пока нет подарков").foregroundStyle(.secondary).frame(maxWidth: .infinity, minHeight: 90) }
-                        else { ForEach(user.gifts.indices, id: \\.self) { index in Label(user.gifts[index], systemImage: "gift.fill").padding(12).frame(maxWidth: .infinity, alignment: .leading).background(.white.opacity(0.06)).clipShape(RoundedRectangle(cornerRadius: 12)) } }
+                        else { ForEach(user.gifts.indices, id: \.self) { index in Label(user.gifts[index], systemImage: "gift.fill").padding(12).frame(maxWidth: .infinity, alignment: .leading).background(.white.opacity(0.06)).clipShape(RoundedRectangle(cornerRadius: 12)) } }
                     }
                     Button("Выйти из аккаунта", role: .destructive) { store.logout() }.frame(maxWidth: .infinity).padding(.top, 12)
                 }.padding()
