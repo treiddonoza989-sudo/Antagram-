@@ -5,13 +5,13 @@ struct AdminView: View {
     var body: some View {
         NavigationStack {
             List {
-                Section("Пользователи · \\(store.users.count)") {
+                Section("Пользователи · \(store.users.count)") {
                     ForEach(store.users) { user in
                         NavigationLink { UserManagementView(phone: user.phone) } label: {
                             HStack {
                                 VStack(alignment: .leading, spacing: 4) {
                                     Text(user.phone).fontWeight(.semibold)
-                                    Text("⭐️ \\(user.stars)  ·  ◈ \\(user.gram) GRAM").font(.caption).foregroundStyle(.secondary)
+                                    Text("⭐️ \(user.stars)  ·  ◈ \(user.gram) GRAM").font(.caption).foregroundStyle(.secondary)
                                 }
                                 Spacer()
                                 if user.isAdmin { Text("ADMIN").font(.caption2.bold()).foregroundStyle(.purple) }
@@ -64,7 +64,7 @@ struct UserManagementView: View {
                         Button("Добавить") { store.addGift(phone: phone, name: giftName); giftName = "" }.disabled(giftName.trimmingCharacters(in: .whitespaces).isEmpty)
                     }
                     if user.gifts.isEmpty { Text("Подарков нет").foregroundStyle(.secondary) }
-                    ForEach(user.gifts.indices, id: \\.self) { index in
+                    ForEach(user.gifts.indices, id: \.self) { index in
                         HStack {
                             Label(user.gifts[index], systemImage: "gift.fill")
                             Spacer()
@@ -87,7 +87,7 @@ struct LedgerView: View {
                 ForEach(store.ledger) { item in
                     VStack(alignment: .leading, spacing: 5) {
                         Text(item.action).fontWeight(.medium)
-                        Text("\\(item.phone) · \\(item.currency) · \\(item.amount)").font(.caption).foregroundStyle(.secondary)
+                        Text("\(item.phone) · \(item.currency) · \(item.amount)").font(.caption).foregroundStyle(.secondary)
                         Text(item.date.formatted(date: .numeric, time: .shortened)).font(.caption2).foregroundStyle(.tertiary)
                     }.padding(.vertical, 3)
                 }
