@@ -15,14 +15,14 @@ jobs:
         run: xcodebuild -version
       - name: Build Antagram for iPhone (without signing)
         run: |
-          xcodebuild \\
-            -project "Antagram_Project/Antagram-Prototype/Antagram/Antagram.xcodeproj" \\
-            -target Antagram \\
-            -configuration Release \\
-            -sdk iphoneos \\
-            -derivedDataPath "$RUNNER_TEMP/AntagramDerivedData" \\
-            CODE_SIGNING_ALLOWED=NO \\
-            CODE_SIGNING_REQUIRED=NO \\
+          xcodebuild \
+            -project "Antagram_Project/Antagram-Prototype/Antagram/Antagram.xcodeproj" \
+            -target Antagram \
+            -configuration Release \
+            -sdk iphoneos \
+            -derivedDataPath "$RUNNER_TEMP/AntagramDerivedData" \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
             build
       - name: Package unsigned IPA
         run: |
