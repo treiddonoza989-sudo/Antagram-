@@ -46,14 +46,14 @@ final class AppStore: ObservableObject {
         guard isAdmin, !name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
               let index = users.firstIndex(where: { $0.phone == phone }) else { return }
         users[index].gifts.append(name)
-        ledger.insert(LedgerEntry(phone: phone, action: "Добавлен подарок: \\(name)", amount: 1, currency: "Gift"), at: 0)
+        ledger.insert(LedgerEntry(phone: phone, action: "Добавлен подарок: \(name)", amount: 1, currency: "Gift"), at: 0)
         save()
     }
 
     func removeGift(phone: String, at giftIndex: Int) {
         guard isAdmin, let index = users.firstIndex(where: { $0.phone == phone }), users[index].gifts.indices.contains(giftIndex) else { return }
         let name = users[index].gifts.remove(at: giftIndex)
-        ledger.insert(LedgerEntry(phone: phone, action: "Удалён подарок: \\(name)", amount: 1, currency: "Gift"), at: 0)
+        ledger.insert(LedgerEntry(phone: phone, action: "Удалён подарок: \(name)", amount: 1, currency: "Gift"), at: 0)
         save()
     }
 
