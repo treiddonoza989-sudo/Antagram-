@@ -17,7 +17,7 @@ jobs:
         run: |
           xcodebuild \
             -project "Antagram_Project/Antagram-Prototype/Antagram/Antagram.xcodeproj" \
-            -target Antagram \
+            -scheme Antagram \
             -configuration Release \
             -sdk iphoneos \
             -derivedDataPath "$RUNNER_TEMP/AntagramDerivedData" \
